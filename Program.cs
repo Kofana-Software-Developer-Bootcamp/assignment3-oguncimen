@@ -8,14 +8,46 @@ namespace Apple_Store
         static void Main(string[] args)
         {
             Store store = new Store();
+            List<Customer> customers = new List<Customer>() { new Customer("11111111111", "Ogün", "Çimen", "55555555") };
             Console.WriteLine("Apple stora hoşgeldiniz!");
+            Console.Write("Lütfen TC Kimlik Numaranızı giriniz : ");
+            string tc = Console.ReadLine();
+            if (tc.Length != 11)
+            {
+                Console.WriteLine("TC Kimlik Numaranız 11 haneli olmalıdır.");
+            }
+            var customer = customers.Find(x => x.Id == tc);
+
+            if (customer != null)
+            {
+                Console.WriteLine("İlgili müşteri bilgileri : " + "Tc : " + customer.Id + " Ad : " + customer.Name + " Soyad : " + customer.Surname + " Telefon : " + customer.Phone);
+            }
+            else
+            {
+                Console.WriteLine("İlgili müşteri bulunamadı. Lütfen yeni bir müşteri oluşturunuz.");
+                tc:
+                Console.Write("Tc : ");
+                tc = Console.ReadLine();
+                if (tc.Length!=11)
+                {
+                    goto tc;
+                }
+                Console.Write("Ad : ");
+                string ad = Console.ReadLine();
+                Console.Write("Soyad : ");
+                string soyad = Console.ReadLine();
+                Console.Write("Telefon : ");
+                string telefon = Console.ReadLine();
+                Customer newCustomer = new Customer(tc, ad, soyad, telefon);
+                customers.Add(newCustomer);
+            }
             int action = selectedAction();
             while (action != 0)
             {
                 switch (action)
                 {
                     case 1:
-                        Console.WriteLine("Yeni ürün eklemeyi seçtiniz.");
+                        Console.WriteLine("Yeni ürün eklemeyi seçtiniz. İstediğiniz ürünün ürün numarasınız yazınız.");
                         string category = "";
                         string model = "";
                         string price = "";
@@ -50,14 +82,16 @@ namespace Apple_Store
 
 
                 }
+                action = selectedAction();
+
             }
         }
 
-        public static void shoppingCart(Store store)
+        static public void shoppingCart(Store store)
         {
             for (int i = 0; i < store.ShoppingList.Count; i++)
             {
-                Console.WriteLine("Ürün No " + i + " Kategori : " + store.ProductList[i].Category + " Model : " + store.ProductList[i].Model + " Fiyat : " + store.ProductList[i].Price);
+                Console.WriteLine("Ürün Numarası " + i + " Kategori : " + store.ShoppingList[i].Category + " Model : " + store.ShoppingList[i].Model + " Fiyat : " + store.ShoppingList[i].Price);
             }
         }
         public static void productList(Store store)
@@ -65,11 +99,11 @@ namespace Apple_Store
 
             for (int i = 0; i < store.ProductList.Count; i++)
             {
-                Console.WriteLine("Ürün No " + i + " Kategori : " + store.ProductList[i].Category + " Model : " + store.ProductList[i].Model + " Fiyat : " + store.ProductList[i].Price);
+                Console.WriteLine("Ürün Numarası " + i + " Kategori : " + store.ProductList[i].Category + " Model : " + store.ProductList[i].Model + " Fiyat : " + store.ProductList[i].Price);
 
             }
         }
-        public static int selectedAction()
+        static public int selectedAction()
         {
             int selected = 0;
             Console.WriteLine("Lütfen işlemlerden birini seçiniz: Çıkmak için (0) , yeni ürün eklemek için (1) , sepete eklemek için (2) ,alışverişi bitirmek için (3)");
@@ -78,56 +112,8 @@ namespace Apple_Store
             return selected;
         }
     }
-    class Product
-    {
-        public string Category { get; set; }
-        public string Model { get; set; }
-        public decimal Price { get; set; }
-        
-        public Product(string category, string model, decimal price)
-        {
-            Category = category;
-            Model = model;
-            Price = price;
-        }
-    }
-    class Customer
-    {
-        public string Id { get; set; }
-        public string Name { get; set; }
-        public string Surname { get; set; }
-        public string Phone { get; set; }
+    
+   
 
 
-
-        public Customer(string id, string name, string surname, string phone)
-        {
-            Id = id;
-            Name = name;
-            Surname = surname;
-            Phone = phone;
-        }
-    }
-    class Store
-    {
-        public List<Product> ProductList { get; set; }
-        public List<Product> ShoppingList { get; set; }
-        public Store()
-        {
-            ProductList = new List<Product>();
-            ShoppingList = new List<Product>();
-        }
-        public decimal Checkout()
-        {
-            decimal total = 0;
-
-            foreach (var item in ShoppingList)
-            {
-                total += item.Price;
-            }
-            ShoppingList.Clear();
-            return total;
-        }
-
-    }
 }
