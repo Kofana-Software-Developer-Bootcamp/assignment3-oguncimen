@@ -175,7 +175,7 @@ namespace Apple_Store
             return int.Parse(action);
 
         }
-        //create a method check input is an integer
+        //check if the input is an integer
         static public bool isInteger(string input)
         {
             int number;
