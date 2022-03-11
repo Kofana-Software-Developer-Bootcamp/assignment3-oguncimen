@@ -52,23 +52,20 @@ namespace Apple_Store
                 switch (action)
                 {
                     case 1:
-                        //Get the product information from the user
-                        Console.WriteLine("Yeni ürün eklemeyi seçtiniz.");
-                        Console.WriteLine("------------------------------------------------------------------------");
-
+                        //Get the product information from the user               
                         string category = "";
                         string model = "";
                         string price = "";
-
+                        Console.WriteLine("----------------------------------------------------");
                         Console.WriteLine("Lütfen bir kategori yazınız. Mac, Iphone, Airpods vb.");
                         Console.WriteLine("----------------------------------------------------");
 
                         category = Console.ReadLine();
-
+                        Console.WriteLine("----------------------------------------------------");
                         Console.WriteLine("Lütfen bir model yazınız. Air, Pro vb.");
                         Console.WriteLine("----------------------------------------------------");
                         model = Console.ReadLine();
-
+                        Console.WriteLine("----------------------------------------------------");
                         Console.WriteLine("Lütfen fiyatını yazınız.");
                         Console.WriteLine("----------------------------------------------------");
 
@@ -95,6 +92,7 @@ namespace Apple_Store
                             goto selectedAction;
                         }
                         Console.WriteLine("Sepete eklemek için bir ürün seçiniz.");
+
                         // Show the product list
                         productList(store);
                         Console.WriteLine("Hangi ürünü almak istersiniz?");
@@ -129,6 +127,7 @@ namespace Apple_Store
         static public void shoppingCart(Store store)
         {
             //show the shopping list
+            Console.WriteLine("----------------------------------------------------");
             Console.WriteLine("Sepetiniz");
             Console.WriteLine("----------------------------------------------------");
             for (int i = 0; i < store.ShoppingList.Count; i++)
@@ -141,6 +140,7 @@ namespace Apple_Store
         public static void productList(Store store)
         {
             //show the product list
+            Console.WriteLine("----------------------------------------------------");
             Console.WriteLine("Ürün Listesi");
             Console.WriteLine("----------------------------------------------------");
             for (int i = 0; i < store.ProductList.Count; i++)
